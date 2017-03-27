@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>UM BookStore</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <link href="../static/css/index.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+</head>
+
+
+<body>
+    <!--navbar-->
+    <nav class="navbar navbar-default navbar-static-top" >
+        <div class="container">
+            <div class="navbar-header">
+                <a href="#" class="navbar-brand"></a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><img class="img_nav" src="../static/images/umich_big_icon.png" ></li>
+                <li style="background-color:#08223c" class="active"><a href="#">HOME PAGE</a></li>
+                <li class="active"><a href="/signup" id="nav-title">SIGN UP</a></li>
+                <li class="active"><a href="/login" id="nav-title">LOG IN</a></li>
+            </ul>
+            <a tabindex="0" class="item" aria-label="Facebook" href="https://www.facebook.com/UniversityOfMichigan/">
+                <i class="fa fa-fw fa-facebook"></i>
+            </a>
+            <a tabindex="0" class="item" aria-label="Twitter" href="https://twitter.com/umich">
+                <i class="fa fa-fw fa-twitter"></i>
+            </a>
+            <a tabindex="0" class="item" aria-label="Instagram" href="https://www.instagram.com/uofmichigan/">
+                <i class="fa fa-fw fa-instagram"></i>
+            </a>
+            <a tabindex="0" class="item" aria-label="Flickr" href="https://www.flickr.com/groups/48911721@N00/">
+                <i class="fa fa-fw fa-flickr"></i>
+            </a>
+        </div>
+    </nav>
+
+    <!--flash messages-->
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-warning alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true"> × </span></button>
+                {{message}}
+            </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+
+    <!--content-->
+    <div class="intro-banner container">
+        <span class="badge bdg block">&nbsp;Welcome, please sign up if you first visit&nbsp;</span>
+        <h1><img src="../static/images/umich_200.png"></h1>
+        <span class="badge bdg_title center-block"> &nbsp;&nbsp;UMICH BOOKSTORE DATABASE&nbsp;&nbsp;</span>
+    </div>
+
+    <!--author table-->
+    <h2 class="list" >&nbsp;&nbsp;&nbsp;&nbsp;AUTHOR LIST</h2>
+    <br/>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+            <th></th>
+            <th> Author ID</th>
+            <th>&nbsp;&nbsp;&nbsp;Name</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for author in authors %}
+            <tr>
+                <td class="col-md-1"></td>
+                <td class="col-md-2">{{author.id}}</td>
+                <td class="col-md-3"><a href="{{ url_for('show_book', author_id = author.id)}}" class="btn" role="button">{{author.name}}</a></td>
+                <td class="col-md-1"></td>
+                <td class="col-md-5"></td>
+                <td class="col-md-1"></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!--book table-->
+    <h2  class="list">&nbsp;&nbsp;&nbsp;&nbsp;BOOK LIST</h2>
+    <br/>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Book ID</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Description</th>
+                <th></th>
+                <th></th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in books %}
+            <tr>
+                <td class="col-md-1"></td>
+                <td class="col-md-2">{{book.id}}</td>
+                <td class="col-md-3">{{book.name}}</td>
+                <td class="col-md-1">$ {{book.price}}</td>
+                <td class="col-md-5">{{book.description}}</td>
+                <td class="col-md-1"></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!--footer-->
+    <footer class="footer1">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <label class="col-lg-6 col-md-6"></label>
+                    <img src="http://vpcomm.umich.edu/assets/brand/home/logo.png" class="footer-logo">
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <ul class="list-unstyled clear-margins">
+                        <li class="widget-container widget_nav_menu">
+                            <ul class="contact">
+                                <li class="title-widget">Ann Arbot | Dearborn | Flint </li>
+                                <li> <a href="http://regents.umich.edu/"><span>&copy; 2017 The Regents of the University of Michigan 500 S. State Street, Ann Arbor, MI 48109 USA</span></a> </li>
+                                <li><a href="/contact/"><span><span class="glyphicon glyphicon-earphone footer-icon" aria-hidden="true"></span> Phone: +1 (734) 764-1817</span></a></li>
+                                <li><a href="/contact/"><span class="glyphicon glyphicon-envelope footer-icon" aria-hidden="true"></span> <span>Contact us</span></a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

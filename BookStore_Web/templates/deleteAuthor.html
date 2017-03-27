@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Delete Author</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <link href="../static/css/index.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{{url_for('.static', filename='css/signup.css')}}">
+</head>
+
+
+<body >
+    <!--navbar-->
+    <nav class="navbar navbar-default navbar-static-top" >
+        <div class="container">
+            <div class="navbar-header">
+                <a href="#" class="navbar-brand"></a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><img class="img_nav" src="http://mobileapps.its.umich.edu/sites/all/themes/umzentwo/images/umich-app-icon.png" ></li>
+                <li class="active"><a href="/permit" id="nav-title">HOME PAGE</a></li>
+                <li  class="active"><a href="#">DELETE AUTHOR</a></li>
+                <li class="active"><a href="/logout" id="nav-title">LOG OUT</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!--content-->
+    <h3  class="list"><label class="col-lg-1"></label>Delete "{{ authorDeleted.name }}" ?</h3>
+    <form action="{{ url_for('delete_author',author_id = authorDeleted.id)}}" method = 'post' >
+        <div class="form-group">
+            <label class="col-sm-1 control-label"></label>
+            <input type="submit" class="btn btn-primary" value="Delete">
+        </div>
+    </form>
+    <br/>
+    <h3  class="list"><label class="col-lg-1"></label>{{ authorDeleted.name }}'s Book List</h3>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Book ID</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Description</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in booksDeleted %}
+                <tr>
+                    <td class="col-md-1">{{book.id}}</td>
+                    <td class="col-md-3">{{book.name}}</td>
+                    <td class="col-md-1">${{book.price}}</td>
+                    <td class="col-md-4">{{book.description}}</td>
+                    <td class="col-md-1"> <a href="{{ url_for('edit_book', book_id = book.id, author_id = book.author_id)}}" class="btn btn-default" role="button">edit</a></td>
+                    <td class="col-md-2"> <a href="{{ url_for('delete_book', book_id = book.id, author_id = book.author_id)}}" class="btn btn-warning" role="button">delete</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!--footer-->
+    <footer class="footer1">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <label class="col-lg-6 col-md-6"></label>
+                    <img src="http://vpcomm.umich.edu/assets/brand/home/logo.png" class="footer-logo">
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <ul class="list-unstyled clear-margins">
+                        <li class="widget-container widget_nav_menu">
+                            <ul class="contact">
+                                <li class="title-widget">Ann Arbot | Dearborn | Flint </li>
+                                <li> <a href="http://regents.umich.edu/"><span>&copy; 2017 The Regents of the University of Michigan 500 S. State Street, Ann Arbor, MI 48109 USA</span></a> </li>
+                                <li><a href="/contact/"><span><span class="glyphicon glyphicon-earphone footer-icon" aria-hidden="true"></span> Phone: +1 (734) 764-1817</span></a></li>
+                                <li><a href="/contact/"><span class="glyphicon glyphicon-envelope footer-icon" aria-hidden="true"></span> <span>Contact us</span></a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
