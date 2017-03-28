@@ -205,7 +205,6 @@ def delete_author(author_id):
         db.session.delete(authorDeleted)
         db.session.commit()
         for book in booksDeleted:
-            print "starttttt"
             db.session.delete(book)
             db.session.commit()
         return redirect(
